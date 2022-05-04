@@ -2,7 +2,8 @@ import './App.css';
 import GoblinForm from './GoblinForm';
 import GoblinList from './GoblinList';
 import Goblin from './Goblin';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 function App() {
   /* 
@@ -18,6 +19,7 @@ function App() {
   const [goblinFormName, setGoblinFormName] = useState('');
   const [goblinFormHP, setGoblinFormHP] = useState('');
   const [goblinFormColor, setGoblinFormColor] = useState('green');
+  const [search, setSearch] = useState('');
   
   function submitGoblin(e) {
     e.preventDefault();
@@ -45,6 +47,8 @@ function App() {
     setAllGoblins([...allGoblins]);
   }
 
+  useEffect(() => handleFilterGoblins(search), [search, allGoblins]);
+
   function handleFilterGoblins(search) {
     // use the filter method to get an array of goblins whose name includes this search argument
     const goblinSearch = allGoblins.filter(goblin => goblin.name.toLowerCase().includes(search.toLowerCase()));
@@ -70,7 +74,7 @@ function App() {
       <div className='goblin-filter quarter'>
         Filter Goblins
         {/* note that handleFilterGoblins is defined upstairs. This is where the allGoblins array gets filtered */}
-        <input onChange={(e) => handleFilterGoblins(e.target.value)} />
+        <input value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
       <GoblinForm 
         /*
@@ -93,7 +97,7 @@ function App() {
         submitGoblin={(e) => submitGoblin(e)}
       />
       <GoblinList 
-        goblins={[...allGoblins]} // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
+        goblins={search ? [...filteredGoblins] : [...allGoblins]} // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
         handleDeleteGoblin={handleDeleteGoblin} // note that the goblin list has access to the ability to delete
       />
     </div>
