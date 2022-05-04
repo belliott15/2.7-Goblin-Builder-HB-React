@@ -47,7 +47,7 @@ function App() {
     setAllGoblins([...allGoblins]);
   }
 
-  useEffect(() => handleFilterGoblins(search), [search, allGoblins]);
+  useEffect(() => handleFilterGoblins(search), [search, allGoblins]); //eslint-disable-line
 
   function handleFilterGoblins(search) {
     // use the filter method to get an array of goblins whose name includes this search argument
