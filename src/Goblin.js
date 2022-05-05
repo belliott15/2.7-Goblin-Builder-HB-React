@@ -7,7 +7,7 @@ export default function Goblin(props) {
       className='goblin' 
       onClick={() => props.handleDeleteGoblin && props.handleDeleteGoblin(props.goblin.name)}>
       <h3>{props.goblin.name}</h3>  
-      <img src="goblin.png" style={{ backgroundColor: props.goblin.color }} />
+      <img src="goblin.png" style={{ backgroundColor: props.goblin.color }} draggable='false'/>
       <p>{props.goblin.hp} HP</p>
     </div>
   );
